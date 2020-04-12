@@ -10,23 +10,21 @@ class EntrainementVue(tk.Frame):
         tk.Frame.__init__(self,master=master)
         self.previous=previous
         self.controller=controller
-        self.title = tk.Frame(self,bd=1,relief=tk.SUNKEN).grid(row=0)
-        tk.Label(self.title, text="ENTRAINEMENT", font=tkFont.Font(size="32"))
-        self.bottomFrame = tk.Frame(self, bd=1, relief=tk.SUNKEN).grid(row=2)
+        self.title = tk.Frame(self,bd=1,relief=tk.SUNKEN)
+        self.title.grid(row=0)
+        tk.Label(self.title, text="ENTRAINEMENT", font=tkFont.Font(size="32")).pack()
+        self.bottomFrame = tk.Frame(self, bd=1, relief=tk.SUNKEN)
+        self.bottomFrame.grid(row=2)
         self.createWidgets()
         self.gameBoard = GameBoard(self, self.controller)
         self.gameBoard.grid(row=1)
 
 
-
-        # self.next1=EntrainementVue(nom,self)
-
-
-
-
     def createWidgets(self):
-        self.back = tk.Button(self.bottomFrame, text="BACK", fg="blue",  command=self.on_back).pack()
-        self.back = tk.Button(self.bottomFrame, text="REPLAY", fg="blue", command=self.on_replay).pack()
+        self.back = tk.Button(self.bottomFrame, text="BACK", fg="blue",  command=self.on_back,width=20)
+        self.back.grid(column=0 ,row = 0 )
+        self.replay = tk.Button(self.bottomFrame, text="REPLAY", fg="blue", command=self.on_replay,width=20)
+        self.replay.grid(column=1,row = 0)
 
 
 
@@ -39,7 +37,7 @@ class EntrainementVue(tk.Frame):
         print(self.back)
 
     def on_replay(self):
-        print("replay")
+        self.gameBoard.replay()
 
 
 
