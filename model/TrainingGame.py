@@ -34,6 +34,11 @@ class TrainingGame(Game):
 
     def load(self):
         valid = False
+        operators = dict()
+        operators[0]="+"
+        operators[1]="-"
+        operators[2]="x"
+        operators[3]="/"
         while not valid :
             # making a copy of the list
             # so that we can at any moment do a backUp
@@ -41,7 +46,7 @@ class TrainingGame(Game):
             opIndex = randrange(0, 4)  # choosing one random operator between + * / -
             left = self.popRandomCard(cardsCopy)  # choosing one random operand between the 6 cards
             right = self.popRandomCard(cardsCopy)  # choosing one random operand between the 5 cards left
-            op = self.operators[opIndex]
+            op = self.operators[operators[opIndex]]
 
             if TrainingGame.validate(left,op,right):
                 leftC = Constant(left)
@@ -55,7 +60,7 @@ class TrainingGame(Game):
 
                 for i in range(0, rand):
                     opIndex = randrange(0, 3)
-                    op = self.operators[opIndex]
+                    op = self.operators[operators[opIndex]]
 
                     right = self.popRandomCard(cardsCopy)
 

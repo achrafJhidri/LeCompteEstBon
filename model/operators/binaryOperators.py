@@ -13,7 +13,11 @@ class Plus(BinaryOp):
     
     def __repr__(self):
         return "+"
-    
+
+    @staticmethod
+    def isValid(left, right):
+        return True
+
 class Multi(BinaryOp):
     def __init__(self):
         pass
@@ -23,6 +27,10 @@ class Multi(BinaryOp):
     
     def __repr__(self):
         return "*"
+
+    @staticmethod
+    def isValid(left, right):
+         return left != 1 and right != 1
     
 class Minus(BinaryOp):
     def __init__(self):
@@ -50,5 +58,5 @@ class Divide(BinaryOp):
 
     @staticmethod
     def isValid(left, right):
-         return left > right > 1 and left // right == 0 #avoiding division by 0 ( it's not possible ) && by 1 for the actuel project x/1 is x so i don't this kind of
+         return left > right > 1 and left % right == 0 #avoiding division by 0 ( it's not possible ) && by 1 for the actuel project x/1 is x so i don't this kind of
     
