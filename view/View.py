@@ -10,6 +10,6 @@ class View(tk.Tk):
         self.frame = MenuPrincipal(controller,self)
 
 
-        self.geometry("500x500")
+        self.geometry("700x700")
 
         self.controller=controller

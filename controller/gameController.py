@@ -15,3 +15,9 @@ class Controller :
     def setVue(self,view):
 
         self.vue.frame=view
+
+    def getListNumbers(self):
+       return self.game.getListNumbers()
+
+    def getNumberCible(self):
+        return 5
