@@ -4,8 +4,8 @@ from .ComplexEX import ComplexExpression
 class BinaryExpression(ComplexExpression):
     def __init__(self, left, op, right):
         ComplexExpression.__init__(self, op)
-        if left is None or right is None:
-            raise ArithmeticError("illegal argument")
+        # if left is None or right is None:
+        #     raise ArithmeticError("illegal argument")
         self.left = left
         self.right = right
         self.op = op
