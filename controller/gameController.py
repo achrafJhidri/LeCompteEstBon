@@ -22,3 +22,6 @@ class Controller :
         return int(self.game.target)
     def initTrainingGame(self):
         self.game=TrainingGame()
+
+    def evaluate(self,left,op,right):
+        return self.game.evaluate(left,op,right)
