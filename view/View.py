@@ -1,15 +1,18 @@
-
+from view.Pseudo import Pseudo
 import tkinter as tk
 
-from view.MenuPrincipal import MenuPrincipal
-
-
 class View(tk.Tk):
-    def __init__(self,controller):
+    def __init__(self, controller):
         tk.Tk.__init__(self)
-        self.frame = MenuPrincipal(controller,self)
+        self.frame = Pseudo(controller, self)
 
+        screen_height = int(self.winfo_screenheight() * 2 / 3)
+        screen_width = self.winfo_screenwidth()
 
-        self.geometry("700x700")
+        screen_width = int(screen_width * 2 / 3)
+        # print(screen_width)
 
-        self.controller=controller
+        self.geometry("{0}x{1}".format(screen_width, screen_height))
+
+        self.controller = controller
+
