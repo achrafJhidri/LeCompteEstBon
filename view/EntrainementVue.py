@@ -8,7 +8,6 @@ from view.GameBoardVue import GameBoard
 class EntrainementVue(tk.Frame):
     def __init__(self,controller,master,previous):
         tk.Frame.__init__(self,master=master)
-#       self.config(width=400,height=400,bd=1,relief="sunken")
         self.previous=previous
         self.controller=controller
         self.title = tk.Frame(self,bd=1,relief=tk.SUNKEN).grid(row=0)
@@ -26,7 +25,6 @@ class EntrainementVue(tk.Frame):
 
 
     def createWidgets(self):
-
         self.back = tk.Button(self.bottomFrame, text="BACK", fg="blue",  command=self.on_back).pack()
         self.back = tk.Button(self.bottomFrame, text="REPLAY", fg="blue", command=self.on_replay).pack()
 
@@ -34,10 +32,11 @@ class EntrainementVue(tk.Frame):
 
 
 
-
     def on_back(self):
-        self.pack_forget()
+        self.forget()
         self.previous.pack()
+    def on_click(self):
+        print(self.back)
 
     def on_replay(self):
         print("replay")
