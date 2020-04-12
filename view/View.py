@@ -1,7 +1,6 @@
-import tkinter as tk
 
-from view.MenuPrincipal import MenuPrincipal
 from view.Pseudo import Pseudo
+import tkinter as tk
 
 
 class View(tk.Tk):
@@ -13,7 +12,6 @@ class View(tk.Tk):
         screen_width = self.winfo_screenwidth()
 
         screen_width = int(screen_width * 2 / 3)
-        # print(screen_width)
 
         self.geometry("{0}x{1}".format(screen_width, screen_height))
 

@@ -42,6 +42,6 @@ class Pseudo(tk.Frame):
         else :
             self.controller.name=self.pseudo.get()
             self.pack_forget()
-            self.menu.show()
+            self.menu.pack(expand="yes")
 
 

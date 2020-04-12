@@ -7,13 +7,15 @@ from view.EntrainementVue import EntrainementVue
 class MenuPrincipal(tk.Frame):
     def __init__(self,controller,master,previous):
         tk.Frame.__init__(self,master=master)
-        self.config(background  ="red")
+
+        self.config()
+
         self.controller=controller
         self.previous=previous
         self.createWidgets()
 
-        self.entrainementVue=EntrainementVue(controller = controller,previous = self,master=master)
-        self.entrainementVue.grid_forget()
+        self.entrainementVue =None
+
 
 
     def show(self):
@@ -32,6 +34,9 @@ class MenuPrincipal(tk.Frame):
 
 
     def on_entrainement(self):
+        self.controller.initTrainingGame()
+        if self.entrainementVue is None :
+            self.entrainementVue = EntrainementVue(controller=self.controller, previous=self, master=self.master)
         self.pack_forget()
         self.entrainementVue.pack()
 

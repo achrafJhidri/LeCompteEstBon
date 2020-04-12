@@ -1,11 +1,10 @@
-from model.Game import Game
-from view.MenuPrincipal import MenuPrincipal
+from model.TrainingGame import TrainingGame
 from view.View import View
 
 
 class Controller :
     def __init__(self):
-        self.game = Game()
+        self.game = None
         self.vue=View(self)
 
 
@@ -15,3 +14,11 @@ class Controller :
     def setVue(self,view):
 
         self.vue.frame=view
+
+    def getListNumbers(self):
+       return self.game.getCards()
+
+    def getNumberCible(self):
+        return int(self.game.target)
+    def initTrainingGame(self):
+        self.game=TrainingGame()
