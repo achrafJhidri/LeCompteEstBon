@@ -14,7 +14,7 @@ class MyButton(tk.Button):
 
     def unUse(self):
         self.used=False
-        self.config(state="disabled")
+        self.config(state="normal")
 
     def isUsed(self):
         return self.used
