@@ -7,7 +7,9 @@ from view.EntrainementVue import EntrainementVue
 class MenuPrincipal(tk.Frame):
     def __init__(self,controller,master,previous):
         tk.Frame.__init__(self,master=master)
+
         self.config()
+
         self.controller=controller
         self.previous=previous
         self.createWidgets()
@@ -46,4 +48,5 @@ class MenuPrincipal(tk.Frame):
     def on_back(self):
         self.pack_forget()
         self.previous.pack()
+
 

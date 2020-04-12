@@ -1,5 +1,7 @@
+
 from view.Pseudo import Pseudo
 import tkinter as tk
+
 
 class View(tk.Tk):
     def __init__(self, controller):
@@ -10,9 +12,7 @@ class View(tk.Tk):
         screen_width = self.winfo_screenwidth()
 
         screen_width = int(screen_width * 2 / 3)
-        # print(screen_width)
 
         self.geometry("{0}x{1}".format(screen_width, screen_height))
 
         self.controller = controller
-
