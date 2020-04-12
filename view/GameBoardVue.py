@@ -1,10 +1,9 @@
 import tkinter as tk
 import tkinter.font as tkFont
+from tkinter import messagebox
+from tokenize import String
 
 
-from model.expressions.Ex import Constant
-from model.expressions.binaryEx import BinaryExpression
-from model.operators.binaryOperators import Plus, Multi, Divide, Minus
 from view.MyButton import MyButton
 
 
@@ -23,11 +22,15 @@ class GameBoard(tk.Frame):
         self.listOperatorsFrame=tk.Frame(self,bd=1 , relief=tk.SUNKEN)
         self.listOperatorsFrame.grid(row=2,column=1)
 
-        self.listCards=None
-        self.listOperators=None
+        self.listCards :list=None
+        self.listOperators: list=None
 
-        self.currentOperation : BinaryExpression = None
+        self.left : MyButton = None
+        self.operator: String = None
+
         self.createWidgets()
+
+        self.numberOfAdditionnalCards=0
 
 
 
@@ -54,14 +57,6 @@ class GameBoard(tk.Frame):
         button.grid(row=3)
         self.listOperators.append(button)
 
-        self.operators= dict()
-        self.operators[0]=Plus()
-        self.operators[1]=Multi()
-        self.operators[2]=Divide()
-        self.operators[3]=Minus()
-
-
-
     def createCards(self):
         numbers = self.controller.getListNumbers()
         i = 0
@@ -74,21 +69,29 @@ class GameBoard(tk.Frame):
             i += 1
 
     def on_card(self,index):
-        self.listCards[index].use()
-        # for button in self.listCards:
-        #     button.config(state="disable")
-        if(self.currentOperation is None ):
-            self.currentOperation=BinaryExpression(Constant(self.listCards[index].cget("text")),None,None)
+        if(self.left is None ):
+            self.left=self.listCards[index]
             self.toggleAll(self.listOperators, "normal")
             self.toggleAll(self.listCards, state="disable")
+            self.listCards[index].use()
         else :
-            self.currentOperation.right = Constant(self.listCards[index].cget("text"))
-            result = self.currentOperation.evaluate()
-            button = MyButton(self.listNumbersFrame, text=result, width=4, height=2, font=tkFont.Font(size=30),
-                                  fg="blue", command=lambda c=len(self.listCards): self.on_card(c))
-            button.grid(row=0,column=len(self.listCards),padx=4,pady=4)
-            self.listCards.append(button)
-            self.currentOperation = None
+            right = self.listCards[index].cget("text")
+            result= self.controller.evaluate(self.left.cget("text"),self.operator,right)
+            if result :
+                button = MyButton(self.listNumbersFrame, text=result, width=4, height=2, font=tkFont.Font(size=30),
+                                                  fg="blue", command=lambda c=len(self.listCards): self.on_card(c))
+                button.grid(row=1,column=self.numberOfAdditionnalCards,padx=4,pady=4)
+                self.numberOfAdditionnalCards+=1
+                self.listCards.append(button)
+                self.listCards[index].use()
+            else :
+                box = messagebox.showerror("error", "{0}{1}{2} is not a valid operation".format(self.left.cget("text"),self.operator,right ), default=messagebox.OK)
+                self.left.unUse()
+            self.left = None
+            self.operator = None
+
+
+
 
 
 
@@ -96,7 +99,7 @@ class GameBoard(tk.Frame):
     def onOp(self,index):
         self.toggleAll(self.listCards, "normal")
         self.toggleAll(self.listOperators, state="disabled")
-        self.currentOperation.op=self.operators[index]
+        self.operator=self.listOperators[index].cget("text")
 
 
     @staticmethod
@@ -108,6 +111,13 @@ class GameBoard(tk.Frame):
     def replay(self):
         self.controller.initTrainingGame()
         self.cibleValue.set(self.controller.getNumberCible())
+
+        while len(self.listCards) != 0:
+            self.listCards.pop().destroy()
+        self.createCards()
+        self.left=None
+        self.operator=None
+        self.numberOfAdditionnalCards=0
 
 
         # self.cibleLabel.pack()
