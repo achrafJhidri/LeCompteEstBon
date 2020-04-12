@@ -15,8 +15,7 @@ class MenuPrincipal(tk.Frame):
         self.controller=controller
         self.createWidgets()
 
-        self.entrainementVue=EntrainementVue(controller = controller,previous = self,master=master)
-        self.entrainementVue.pack_forget()
+        self.entrainementVue=None
 
 
 
@@ -33,6 +32,9 @@ class MenuPrincipal(tk.Frame):
 
 
     def on_entrainement(self):
+        self.controller.initTrainingGame()
+        if ( self.entrainementVue is None):
+            self.entrainementVue = EntrainementVue(controller=self.controller, previous=self, master=self.master)
         self.pack_forget()
         self.entrainementVue.pack()
 
