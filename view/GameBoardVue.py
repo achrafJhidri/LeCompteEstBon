@@ -43,19 +43,15 @@ class GameBoard(tk.Frame):
 
 
     def createOperators(self):
+        listOp = self.controller.getOperators()
+        i = 0
         self.listOperators = list()
-        button = MyButton(self.listOperatorsFrame, text="+", width=2, font= tkFont.Font(size=30),  fg="blue",command=lambda c = 0 : self.onOp(c))
-        button.grid(row=0)
-        self.listOperators.append(button)
-        button = MyButton(self.listOperatorsFrame, text="x", width=2, font= tkFont.Font(size=30),  fg="blue",command=lambda c = 1 : self.onOp(c))
-        button.grid(row=1)
-        self.listOperators.append(button)
-        button = MyButton(self.listOperatorsFrame, text="/", width=2,  font= tkFont.Font(size=30),  fg="blue",command=lambda c = 2 : self.onOp(c))
-        button.grid(row=2)
-        self.listOperators.append(button)
-        button = MyButton(self.listOperatorsFrame, text="-", width=2,  font= tkFont.Font(size=30),  fg="blue",command=lambda c = 3 : self.onOp(c))
-        button.grid(row=3)
-        self.listOperators.append(button)
+        while i < len(listOp):
+            button = MyButton(self.listOperatorsFrame, text=str(listOp[i]), width=2, font=tkFont.Font(size=30), fg="blue",
+                              command=lambda c=i: self.onOp(c))
+            button.grid(row=i)
+            self.listOperators.append(button)
+            i+=1
 
     def createCards(self):
         numbers = self.controller.getListNumbers()
