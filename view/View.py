@@ -1,4 +1,4 @@
-
+from view.MenuPrincipal import MenuPrincipal
 from view.Pseudo import Pseudo
 import tkinter as tk
 
@@ -16,3 +16,7 @@ class View(tk.Tk):
         self.geometry("{0}x{1}".format(screen_width, screen_height))
 
         self.controller = controller
+
+
+    def goMenuPrincipale(self):
+        self.frame=Pseudo(controller=self.controller,master=self)

@@ -23,7 +23,7 @@ class Pseudo(tk.Frame):
                                   default="normal")
         self.validate.pack(side="bottom")
 
-        self.label = tk.Label(self, text="pseudo",justify="right")
+        self.label = tk.Label(self, text="the name again ?",justify="right")
         self.label.pack(expand="yes")
 
         r = self.master.winfo_screenwidth()
@@ -40,7 +40,7 @@ class Pseudo(tk.Frame):
         if not self.pseudo.get() :
             print("empty text aswhole")
         else :
-            self.controller.name=self.pseudo.get()
+            self.controller.saveName(self.pseudo.get())
             self.pack_forget()
             self.menu.pack(expand="yes")
 
