@@ -22,7 +22,7 @@ class GameBoard(tk.Frame):
         self.listOperatorsFrame=tk.Frame(self,bd=1 , relief=tk.SUNKEN)
         self.listOperatorsFrame.grid(row=2,column=1)
 
-        self.listCards :list=None
+        self.listCards :list<MyButton>=None
         self.listOperators: list=None
 
         self.left : MyButton = None
