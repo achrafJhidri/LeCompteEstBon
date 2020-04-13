@@ -1,10 +1,11 @@
+from model.Game import Game
 from model.TrainingGame import TrainingGame
 from view.View import View
 
 
 class Controller :
     def __init__(self):
-        self.game = None
+        self.game : Game = None
         self.vue=View(self)
 
 
@@ -16,7 +17,10 @@ class Controller :
         self.vue.frame=view
 
     def getListNumbers(self):
-       return self.game.getCards()
+        listNumbers = list()
+        for card in self.game.getCards():
+            listNumbers.append(card.value)
+        return listNumbers
 
     def getNumberCible(self):
         return int(self.game.target)
@@ -39,5 +43,13 @@ class Controller :
     def onOp(self,indexOp):
         self.game.onOp(indexOp)
 
-    def evaluate(self,left,op,right):
-        return self.game.evaluate(left,op,right)
+    def getOperators(self):
+        return self.game.operators
+
+    def goMenuPrincipal(self):
+        self.vue.goMenuPrincipale()
+
+
+
+    def saveName(self,name):
+        self.playerName=name
