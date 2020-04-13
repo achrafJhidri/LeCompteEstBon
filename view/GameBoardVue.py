@@ -25,8 +25,6 @@ class GameBoard(tk.Frame):
         self.listCards :list<MyButton>=None
         self.listOperators: list=None
 
-        self.left : MyButton = None
-        self.operator: String = None
 
         self.createWidgets()
 
@@ -65,37 +63,46 @@ class GameBoard(tk.Frame):
             i += 1
 
     def on_card(self,index):
-        if(self.left is None ):
-            self.left=self.listCards[index]
+        result = self.controller.onCard(index)
+        if  type(result) == type(String)  :
+            messagebox.showerror("error",result,default=messagebox.OK)
+            self.listCards[self.leftIndex].unUse()
+            self.leftIndex=None
+        elif result == 0 :
+            #op gauche
             self.toggleAll(self.listOperators, "normal")
-            self.toggleAll(self.listCards, state="disable")
+            self.toggleAll(self.listCards,    "disable")
+            self.listCards[index].config(highlightbackground="green")
             self.listCards[index].use()
-        else :
-            right = self.listCards[index].cget("text")
-            result= self.controller.evaluate(self.left.cget("text"),self.operator,right)
-            if result :
-                button = MyButton(self.listNumbersFrame, text=result, width=4, height=2, font=tkFont.Font(size=30),
-                                                  fg="blue", command=lambda c=len(self.listCards): self.on_card(c))
-                button.grid(row=1,column=self.numberOfAdditionnalCards,padx=4,pady=4)
-                self.numberOfAdditionnalCards+=1
-                self.listCards.append(button)
-                self.listCards[index].use()
+            self.leftIndex=index
+        elif result == -1 :#fin du game
+            answer = messagebox.askyesno("replay","vous voulez rejouer ?")
+            if answer:
+                self.replay()
             else :
-                box = messagebox.showerror("error", "{0}{1}{2} is not a valid operation".format(self.left.cget("text"),self.operator,right ), default=messagebox.OK)
-                self.left.unUse()
-            self.left = None
-            self.operator = None
+                self.master.forget()
+                self.controller.goMenuPrincipal()
 
+        else :
+            button = MyButton(self.listNumbersFrame, text=result, width=4, height=2, font=tkFont.Font(size=30),
+                              fg="blue", command=lambda c=len(self.listCards): self.on_card(c))
+            button.grid(row=1, column=self.numberOfAdditionnalCards, padx=4, pady=4)
+            self.numberOfAdditionnalCards += 1
+            self.listCards.append(button)
+            self.listCards[index].use()
+            self.updateAfterValidOperation()
 
-
-
-
+    def updateAfterValidOperation(self):
+        i=0
+        while i  < len(self.listCards):
+            self.listCards[i].config(highlightbackground="red")
+            i+=1
 
 
     def onOp(self,index):
         self.toggleAll(self.listCards, "normal")
         self.toggleAll(self.listOperators, state="disabled")
-        self.operator=self.listOperators[index].cget("text")
+        self.controller.onOp(index)
 
 
     @staticmethod
@@ -111,9 +118,4 @@ class GameBoard(tk.Frame):
         while len(self.listCards) != 0:
             self.listCards.pop().destroy()
         self.createCards()
-        self.left=None
-        self.operator=None
         self.numberOfAdditionnalCards=0
-
-
-        # self.cibleLabel.pack()
