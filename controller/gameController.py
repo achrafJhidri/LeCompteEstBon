@@ -41,13 +41,30 @@ class Controller :
         return self.game.onCard(indexCard)
 
     def onOp(self,indexOp):
-        self.game.onOp(indexOp)
+        return self.game.onOp(indexOp)
 
     def getOperators(self):
         return self.game.operators
 
+    def getLeft(self):
+        return self.game.history.getLeft()
+
     def goMenuPrincipal(self):
         self.vue.goMenuPrincipale()
+
+    def rollBack(self):
+        self.game.rollBack()
+
+    def getUnUsedCards(self):
+        return self.game.getUnUsedCards()
+
+    def operatorIsNext(self):
+        return self.game.operatorIsNext()
+
+    def unDo(self):
+        self.game.unDo()
+        isOperator = self.operatorIsNext()
+        return isOperator
 
 
 
