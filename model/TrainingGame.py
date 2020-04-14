@@ -25,12 +25,7 @@ class TrainingGame(Game):
 
     @staticmethod
     def validate(left, op, right):
-        if type(op) == Minus:
-            return Minus.isValid(left, right)
-        elif type(op) == Divide:
-            return Divide.isValid(left, right)
-        else:
-            return True
+        return type(op).isValid(left,right)
 
     def load(self):
         valid = False
@@ -52,7 +47,7 @@ class TrainingGame(Game):
                 self.profondeur = 1  # setting the depth
 
                 # choosing the number of cards to use
-                rand = randrange(3, len(self.cards)) - 2
+                rand = randrange(3, len(self.cards)) - 1
 
                 for i in range(0, rand):
                     opIndex = randrange(0, 3)
@@ -76,21 +71,20 @@ class TrainingGame(Game):
 
     def displaySolution(self):
         depth = self.profondeur
-
         expr = self.solution
-        while depth > self.solutionDepth:
+        while depth > self.solutionDepth+1:
             expr = expr.left
-            #value = expr.evaluate()
-            #if value - EPSYLON > 0 :
             depth -= 1
 
-        print(depth)
-        print(expr)
+        self.solutionDepth+=1
+        return expr
 
     def getSolution(self):
-        self.displaySolution()
         if self.solutionDepth != self.profondeur:
-            self.solutionDepth += 1
+           return str(self.displaySolution())
+        else :
+            return None
+
 
     def resetSolutionDepth(self):
-        self.solutionDepth=1
+        self.solutionDepth=0
