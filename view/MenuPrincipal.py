@@ -47,6 +47,6 @@ class MenuPrincipal(tk.Frame):
 
     def on_back(self):
         self.pack_forget()
-        self.previous.pack()
+        self.previous.pack(expand="yes")
 
 
