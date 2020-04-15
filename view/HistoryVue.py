@@ -1,4 +1,5 @@
 import tkinter as tk
+from assets.Constantes import Config
 
 class History(tk.Frame):
     def __init__(self, master):
@@ -13,63 +14,30 @@ class History(tk.Frame):
         self.RES = 4
         self.DEL = 5
 
-    def addOperandeLeft(self,value):
-        lastRow = self.lastRow()
-        if(lastRow>=0 and self.history[lastRow][self.LEFT].cget("text")==""):
-            self.history[lastRow][self.LEFT].config(text=value)
-        else:
-            nbRows = lastRow+1
+        self.actualRow=0
+        self.createGrid()
+
+    def createGrid(self):
+        i  = 0
+        while i < Config().NUMBER_OF_CARDS:
             buttonList = list()
-            leftOp = tk.Button(self, text=value, state=tk.DISABLED, width=4, height=2)
-            leftOp.grid(row=nbRows, column=self.LEFT, padx=2)
-            buttonList.append(leftOp)
-            #create line
-            for i in range(1,6):
-                operator = tk.Button(self, text="", state=tk.DISABLED, width=4, height=2)
-                operator.grid(row=nbRows, column=i, padx=2)
+            # create line
+            for j in range(0, 6):
+                operator = tk.Button(self, text="", state=tk.DISABLED, width=5)
+                operator.grid(row=i, column=j)
                 buttonList.append(operator)
             self.history.append(buttonList)
-            if (nbRows > 0):
-                self.history[nbRows - 1][self.DEL].config(state=tk.DISABLED)
+            i+=1
+
+    def addOperandeLeft(self,value):
+        self.history[self.actualRow][self.LEFT].config(text=value)
 
     def addOperator(self, operator):
-        button = self.history[self.lastRow()][self.OP]
-        button.configure(text=operator)
+        self.history[self.actualRow][self.OP].configure(text=operator)
 
-    def lastRow(self):
-        return len(self.history) -1
-
-
-        '''
-        # New button for history
-        rightOp = tk.Button(self.historyFrame, text="value", state=tk.DISABLED, width=4, height=2)
-        rightOp.grid(row=len(self.history), column=2, padx=2)
-
-        # Button =
-        equalButton = tk.Button(self.historyFrame, text="=", state=tk.DISABLED, width=4, height=2)
-        equalButton.grid(row=len(self.history), column=3, padx=2)
-
-        # Button result
-        resultButton = tk.Button(self.historyFrame, text="esult", state=tk.DISABLED, width=4, height=2)
-        resultButton.grid(row=len(self.history), column=4, padx=2)
-
-        # Button delete line
-        deleteButton = tk.Button(self.historyFrame, text="x", fg="red", width=4, height=2,
-                                 command=lambda c=len(self.history): self.onDeleteHistory(c))
-        deleteButton.grid(row=len(self.history), column=5)
-
-        opButton = tk.Button(self.historyFrame, text=repr(self.currentOperation.op), state=tk.DISABLED, width=4,
-                             height=2)
-        opButton.grid(row=len(self.history), column=1)
-
-
-
-        # add to history
-        self.history.append(self.currentOperation)
-        '''
     def addOperandeRight(self, value, result):
         #RightOperande
-        row = self.lastRow()
+        row = self.actualRow
         rightOp = self.history[row][self.RIGHT]
         rightOp.configure(text=value)
 
@@ -85,33 +53,33 @@ class History(tk.Frame):
         deleteBtn = self.history[row][self.DEL]
         deleteBtn.config(text="x", fg="red",state=tk.NORMAL, command=lambda : self.deleteLine())
 
+        if self.actualRow > 0  :
+            self.history[self.actualRow-1][self.DEL].config(text="x", fg="red", state=tk.DISABLED)
+        self.actualRow += 1
 
 
     def deleteLine(self):
         self.deleteLastButtons()
-        if(self.lastRow()>=0):
-            self.master.rollBack()
+        self.master.rollBack()
 
     def unDo(self, isOperator):
         if(isOperator):
-            self.history[self.lastRow()][self.OP].config(text="")
+            self.history[self.actualRow][self.OP].config(text="")
         else:
-            self.deleteLastButtons()
+            self.history[self.actualRow][self.LEFT].config(text="")
 
     def deleteLastButtons(self):
-        row = self.lastRow()
-        listButtons = self.history[row]
+
+        if self.actualRow != 1 :
+            self.history[self.actualRow - 2][self.DEL].config(state=tk.NORMAL)
+
+        listButtons = self.history[self.actualRow - 1]
         for button in listButtons:
-            button.destroy()
-        self.history.pop()
-        if (row > 0):
-            self.history[row - 1][self.DEL].config(state=tk.NORMAL)
+            button.config(text="", state=tk.DISABLED)
+        self.actualRow -= 1
 
     def reset(self):
-        print("reset")
-        while self.lastRow()>=0:
-            print("deleteLine")
-            self.deleteLine()
 
-
-
+        self.history.clear()
+        self.createGrid()
+        self.actualRow=0

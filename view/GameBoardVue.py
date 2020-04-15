@@ -3,6 +3,7 @@ import tkinter.font as tkFont
 from tkinter import messagebox
 from tokenize import String
 
+from assets.Constantes import Config
 from view.HistoryVue import History
 from view.MyButton import MyButton
 
@@ -11,28 +12,41 @@ class GameBoard(tk.Frame):
     def __init__(self, master, controller):
         tk.Frame.__init__(self, master=master)
         self.controller=controller
-        self.cibleFrame = tk.Frame(self,bd=1,relief=tk.SUNKEN)
-        self.cibleValue= tk.StringVar()
-        self.cibleValue.set(self.controller.getNumberCible())
-        self.cibleLabel = tk.Label(self.cibleFrame,bd=1,relief=tk.SUNKEN, width= 5, font= tkFont.Font(size=62), textvariable=self.cibleValue)
-        self.cibleLabel.pack()
-        self.cibleFrame.grid(row=0)
-        self.listNumbersFrame = tk.Frame(self, bd=1, relief=tk.SUNKEN)
-        self.listNumbersFrame.grid(row=1,column=0)
-        self.listOperatorsFrame=tk.Frame(self,bd=1 , relief=tk.SUNKEN)
-        self.listOperatorsFrame.grid(row=2,column=1)
-        self.history = History(self)
-        self.history.grid(row=2, column=0)
         self.listOperators: list=None
         self.listCards :list<MyButton>=None
+
+        #frames
+        self.initTargetFrame()
+        self.initCardsFrame()
+        self.initOperatorsFrame()
+        self.initHistoryFrame()
+
+
         self.createWidgets()
 
+    def initHistoryFrame(self):
+        self.history = History(self)
+        self.history.grid(row=2, column=0)
 
+    def initOperatorsFrame(self):
+        self.listOperatorsFrame = tk.Frame(self, bd=1)
+        self.listOperatorsFrame.grid(row=2, column=1)
+
+    def initCardsFrame(self):
+        self.listNumbersFrame = tk.Frame(self, bd=1)
+        self.listNumbersFrame.grid(row=1, column=0)
+
+    def initTargetFrame(self):
+        self.cibleFrame = tk.Frame(self, bd=1)
+        self.cibleValue = tk.StringVar()
+        self.cibleValue.set(self.controller.getNumberCible())
+        self.cibleLabel = tk.Label(self.cibleFrame, bd=1, width=5, font=tkFont.Font(size=62), textvariable=self.cibleValue)
+        self.cibleLabel.pack()
+        self.cibleFrame.grid(row=0)
 
     def createWidgets(self):
         self.createOperators()
         self.createCards()
-
         self.toggleAll(self.listOperators,"disabled")
         self.toggleAll(self.listCards,"normal")
 
@@ -42,12 +56,12 @@ class GameBoard(tk.Frame):
         i = 0
         self.listOperators = list()
         while i < len(listOp):
-            button = MyButton(self.listOperatorsFrame, text=str(listOp[i]), width=2, font=tkFont.Font(size=30), fg="blue",
+            button = MyButton(self.listOperatorsFrame, text=str(listOp[i]), width=1, font=tkFont.Font(size=10), fg="blue",
                               command=lambda c=i: self.onOp(c))
             button.grid(row=i)
             self.listOperators.append(button)
             i+=1
-        self.unDoBtn =MyButton(self.listOperatorsFrame,state="disable", text="U", width=2, font=tkFont.Font(size=30), fg="blue",
+        self.unDoBtn =MyButton(self.listOperatorsFrame,state="disable", text="U", width=1, font=tkFont.Font(size=10), fg="blue",
                  command=lambda: self.unDo())
         self.unDoBtn.grid(row=4)
 
@@ -56,9 +70,8 @@ class GameBoard(tk.Frame):
         i = 0
         self.listCards = list()
         while i < len(numbers):
-            button = MyButton(self.listNumbersFrame, text=numbers[i], width=4, height=2, font=tkFont.Font(size=30),
-                              fg="blue", command=lambda c=i: self.on_card(c))
-            button.grid(row=0, column=i, padx=4, pady=4, )
+            button = MyButton(self.listNumbersFrame, text=numbers[i], width=5, font=tkFont.Font(size=10),fg="blue", command=lambda c=i: self.on_card(c))
+            button.grid(row=0, column=i, )
             self.listCards.append(button)
             i += 1
 
@@ -79,7 +92,7 @@ class GameBoard(tk.Frame):
                 self.controller.goMenuPrincipal()
 
         else:
-            button = MyButton(self.listNumbersFrame, text=result, width=4, height=2, font=tkFont.Font(size=30),
+            button = MyButton(self.listNumbersFrame, text=result, width=5, font=tkFont.Font(size=10),
                               fg="blue", command=lambda c=len(self.listCards): self.on_card(c))
             button.grid(row=1, column=len(self.listCards)-Config().NUMBER_OF_CARDS)
             self.listCards.append(button)
