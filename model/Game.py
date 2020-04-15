@@ -51,7 +51,7 @@ class Game:
         self.operators[3]=Divide()
 
     def setRandomNumber(self):
-        raise NotImplementedError("Not implemented at this level")
+        self.target=randrange(Config().MIN,Config().MAX+1)
 
     def getCards(self):
         return self.cards

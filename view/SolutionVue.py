@@ -3,6 +3,7 @@
 import tkinter as tk
 import tkinter.font as tkFont
 
+from assets.Constantes import Config
 from view.MyButton import MyButton
 
 
@@ -20,10 +21,10 @@ class Solution(tk.Frame):
         self.cibleLabel.grid(row=0,column=0,columnspan=2)
 
         self.askForSolution = MyButton(self, text="solve", width=13, font=tkFont.Font(size=10), fg="blue", command=self.onSolve)
-        self.askForSolution.grid(row=6,column=0)
+        self.askForSolution.grid(row=Config().NUMBER_OF_CARDS,column=0)
 
         self.resetSolution = MyButton(self, text="resetSolution", width=13, font=tkFont.Font(size=10),fg="blue", command=self.onResetSolution)
-        self.resetSolution.grid(row=6, column=1)
+        self.resetSolution.grid(row=Config().NUMBER_OF_CARDS, column=1)
 
     def onSolve(self):
         result = self.controller.askForSolution()

@@ -81,7 +81,7 @@ class GameBoard(tk.Frame):
         else:
             button = MyButton(self.listNumbersFrame, text=result, width=4, height=2, font=tkFont.Font(size=30),
                               fg="blue", command=lambda c=len(self.listCards): self.on_card(c))
-            button.grid(row=1, column=len(self.listCards)-6, padx=4, pady=4)
+            button.grid(row=1, column=len(self.listCards)-Config().NUMBER_OF_CARDS)
             self.listCards.append(button)
             self.history.addOperandeRight(self.listCards[index].cget("text"), result)
             #self.updateAfterValidOperation()
