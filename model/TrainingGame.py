@@ -1,8 +1,16 @@
 from model.Game import Game
+
+from model.NewGame import NewGame
+from model.expressions.Ex import Constant
+from model.expressions.binaryEx import BinaryExpression
+from model.operators.binaryOperators import Minus, Divide
 from model.Solution import Solution
 
 
-class TrainingGame(Game):
+
+
+#class TrainingGame(Game):
+class TrainingGame(NewGame):
     def __init__(self):
         Game.__init__(self)
 
