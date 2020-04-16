@@ -1,4 +1,3 @@
-
 import tkinter as tk
 
 from view.EntrainementVue import EntrainementVue
@@ -21,7 +20,6 @@ class MenuPrincipal(tk.Frame):
     def show(self):
         self.pack(expand="yes")
 
-
     def createWidgets(self):
         self.back = tk.Button(self, text="go back", fg="blue", command=self.on_back)
         self.back.pack(side="bottom",expand="yes")
@@ -35,8 +33,9 @@ class MenuPrincipal(tk.Frame):
 
     def on_entrainement(self):
         self.controller.initTrainingGame()
-        if self.entrainementVue is None :
-            self.entrainementVue = EntrainementVue(controller=self.controller, previous=self, master=self.master)
+        if self.entrainementVue  :
+                self.entrainementVue.destroy()
+        self.entrainementVue = EntrainementVue(controller=self.controller, previous=self, master=self.master)
         self.pack_forget()
         self.entrainementVue.pack()
 
@@ -47,6 +46,6 @@ class MenuPrincipal(tk.Frame):
 
     def on_back(self):
         self.pack_forget()
-        self.previous.pack()
+        self.previous.pack(expand="yes")
 
 

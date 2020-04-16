@@ -7,7 +7,7 @@ class BinaryOp(Operator):
     def __repr__(self):
         raise NotImplementedError("not implemented at this level")
     
-    def evaluate(self , left , right):
+    def evaluate(self , left , right) -> int :
         raise NotImplementedError("not implemented at this level")
     
 class UnaryOp(Operator):
