@@ -1,9 +1,7 @@
 
 import tkinter as tk
 import tkinter.font as tkFont
-
-from view.GameBoardVue import GameBoard
-from view.NewGameBoardView import NewGameBoard
+from view.GameBoardView import GameBoard
 from view.SolutionVue import Solution
 
 
@@ -17,10 +15,10 @@ class EntrainementVue(tk.Frame):
         self.initTitleFrame()
         self.createWidgets()
 
-        self.gameBoard = NewGameBoard(self, self.controller.controllerState)
-        self.gameBoard.grid(row=1)
+        self.gameBoard = GameBoard(self, self.controller.controllerState)
+        self.gameBoard.pack(side="left")
 
-        self.solutionBoard = Solution(master=self,controller=self.controller)
+        self.solutionBoard = Solution(master=self,controller=self.controller.controllerState)
         self.solutionBoard.pack(side="left")
 
 

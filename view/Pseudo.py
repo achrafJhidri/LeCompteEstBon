@@ -40,7 +40,7 @@ class Pseudo(tk.Frame):
 
     def on_validate(self):
         if not self.pseudo.get() :
-            print("empty text aswhole")
+            pass
         else :
             self.controller.saveName(self.pseudo.get())
             self.pack_forget()

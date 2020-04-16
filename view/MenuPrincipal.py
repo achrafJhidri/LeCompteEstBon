@@ -41,7 +41,6 @@ class MenuPrincipal(tk.Frame):
 
 
     def on_1vs1(self):
-        # self.controller.go1vs1()
         print("go etat 1vs1")
 
     def on_back(self):

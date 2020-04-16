@@ -2,32 +2,44 @@ import tkinter as tk
 import tkinter.font as tkFont
 from tkinter import messagebox
 
-from view.MyButton import MyButton
-from view.NewHistoryView import NewHistory
+from assets.Constantes import Config
+
+from view.HistoryView import History
 
 
-class NewGameBoard(tk.Frame):
+class GameBoard(tk.Frame):
     def __init__(self, master, controller):
         tk.Frame.__init__(self, master=master)
         self.controller = controller
         self.controller.setView(self)
-        self.controller.setView(self)
-        self.cibleFrame = tk.Frame(self, bd=1, relief=tk.SUNKEN)
+
+        self.initTargetFrame()
+        self.initCardsFrame()
+        self.initOperatorsFrame()
+        self.initHistoryFrame()
+
+        self.listOperators = None
+        self.listCards= None
+
+        self.createWidgets()
+    def initHistoryFrame(self):
+        self.history = History(self)
+        self.history.grid(row=2, column=0)
+
+    def initOperatorsFrame(self):
+        self.listOperatorsFrame = tk.Frame(self, bd=1)
+        self.listOperatorsFrame.grid(row=2, column=1)
+    def initCardsFrame(self):
+        self.listNumbersFrame = tk.Frame(self, bd=1)
+        self.listNumbersFrame.grid(row=1, column=0)
+
+    def initTargetFrame(self):
+        self.cibleFrame = tk.Frame(self, bd=1)
         self.cibleValue = tk.StringVar()
         self.cibleValue.set(self.controller.getNumberCible())
-        self.cibleLabel = tk.Label(self.cibleFrame, bd=1, relief=tk.SUNKEN, width=5, font=tkFont.Font(size=62),
-                                   textvariable=self.cibleValue)
+        self.cibleLabel = tk.Label(self.cibleFrame, bd=1, width=5, font=tkFont.Font(size=62), textvariable=self.cibleValue)
         self.cibleLabel.pack()
         self.cibleFrame.grid(row=0)
-        self.listNumbersFrame = tk.Frame(self, bd=1, relief=tk.SUNKEN)
-        self.listNumbersFrame.grid(row=1, column=0)
-        self.listOperatorsFrame = tk.Frame(self, bd=1, relief=tk.SUNKEN)
-        self.listOperatorsFrame.grid(row=2, column=1)
-        self.history = NewHistory(self)
-        self.history.grid(row=2, column=0)
-        self.listOperators: list = None
-        self.listCards: list < MyButton >= None
-        self.createWidgets()
 
     def createWidgets(self):
         self.createOperators()
@@ -41,13 +53,13 @@ class NewGameBoard(tk.Frame):
         i = 0
         self.listOperators = list()
         while i < len(listOp):
-            button = MyButton(self.listOperatorsFrame, text=str(listOp[i]), width=2, font=tkFont.Font(size=30),
-                              fg="blue",
-                              command=lambda c=i: self.onClick(c))
+            button = tk.Button(self.listOperatorsFrame, text=str(listOp[i]), width=1, font=tkFont.Font(size=10),
+                               fg="blue",
+                               command=lambda c=i: self.onClick(c))
             button.grid(row=i)
             self.listOperators.append(button)
             i += 1
-        self.unDoBtn = MyButton(self.listOperatorsFrame, state="disable", text="U", width=2, font=tkFont.Font(size=30),
+        self.unDoBtn = tk.Button(self.listOperatorsFrame, state="disable", text="U", width=1, font=tkFont.Font(size=10),
                                 fg="blue",
                                 command=lambda: self.unDo())
         self.unDoBtn.grid(row=4)
@@ -57,7 +69,10 @@ class NewGameBoard(tk.Frame):
         i = 0
         self.listCards = list()
         while i < len(numbers):
-            self.createCard(numbers[i])
+            button = tk.Button(self.listNumbersFrame, text=numbers[i], width=5, font=tkFont.Font(size=10), fg="blue",
+                              command=lambda c=i: self.onClick(c))
+            button.grid(row=0, column=i, )
+            self.listCards.append(button)
             i += 1
 
     def onClick(self, index):
@@ -99,8 +114,6 @@ class NewGameBoard(tk.Frame):
 
     def erase(self, row, column):
         self.history.unDo(row,column)
-
-
 
     def deleteLine(self):
         self.listCards.pop()
@@ -149,18 +162,20 @@ class NewGameBoard(tk.Frame):
         self.toggleAll(self.listOperators,"normal")
 
     def createCard(self, value):
-        i = len(self.listCards)
-        button = MyButton(self.listNumbersFrame, text=value, width=4, height=2, font=tkFont.Font(size=30),
-                          fg="blue", command=lambda c=i: self.onClick(c))
-        button.grid(row=int(i/6), column=int(i%6), padx=4, pady=4, )
+        button = tk.Button(self.listNumbersFrame, text=value, width=5, font=tkFont.Font(size=10),
+                          fg="blue", command=lambda c=len(self.listCards): self.onClick(c))
+        button.grid(row=1, column=len(self.listCards) - Config().NUMBER_OF_CARDS)
         self.listCards.append(button)
 
 
 
-
-
-
-
+    def askForReplay(self):
+        answer = messagebox.askyesno("replay", "Bravo vous avez trouvé ! voulez-vous rejouer ?")
+        if answer:
+            self.master.on_replay()
+        else:
+            self.master.forget()
+            self.controller.goMenuPrincipal()
 
 
 

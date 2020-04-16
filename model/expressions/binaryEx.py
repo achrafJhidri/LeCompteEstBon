@@ -10,8 +10,8 @@ class BinaryExpression(ComplexExpression):
         self.right = right
         self.op = op
 
-    def evaluate(self, x=0):
-        return self.op.evaluate(self.left.evaluate(x), self.right.evaluate(x))
+    def evaluate(self, x=0)  :
+        return int(self.op.evaluate(self.left.evaluate(x), self.right.evaluate(x)))
 
     def __repr__(self):
         return "({0}{1}{2})".format(self.left, self.op, self.right)
