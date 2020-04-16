@@ -3,6 +3,7 @@ import tkinter as tk
 import tkinter.font as tkFont
 
 from view.GameBoardVue import GameBoard
+from view.NewGameBoardView import NewGameBoard
 
 
 class EntrainementVue(tk.Frame):
@@ -16,7 +17,7 @@ class EntrainementVue(tk.Frame):
         self.bottomFrame = tk.Frame(self, bd=1, relief=tk.SUNKEN)
         self.bottomFrame.grid(row=2)
         self.createWidgets()
-        self.gameBoard = GameBoard(self, self.controller)
+        self.gameBoard = NewGameBoard(self, self.controller.controllerState)
         self.gameBoard.grid(row=1)
 
 

@@ -1,5 +1,5 @@
-from controller.gameController import Controller
-import os
+from controller.NewController import NewController
+
 
 #
 # if os.path.isfile("assets/skarlette.jpeg"):
@@ -8,6 +8,6 @@ import os
 # else:
 #      print ("mage does not exits")
 
-ctrl = Controller()
+ctrl = NewController()
 ctrl.run()
 
