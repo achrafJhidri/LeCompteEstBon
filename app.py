@@ -8,6 +8,8 @@ from controller.NewController import NewController
 # else:
 #      print ("mage does not exits")
 
+
 ctrl = NewController()
 ctrl.run()
+
 

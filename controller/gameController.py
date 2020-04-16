@@ -1,6 +1,7 @@
+from view.View import View
 from model.Game import Game
 from model.TrainingGame import TrainingGame
-from view.View import View
+
 
 
 class Controller :
@@ -13,7 +14,6 @@ class Controller :
         self.vue.mainloop()
 
     def setVue(self,view):
-
         self.vue.frame=view
 
     def getListNumbers(self):
@@ -32,8 +32,7 @@ class Controller :
             self.game.setName(self.playerName)
 
 
-    # def evaluate(self,left,op,right):
-    #     return int(self.game.evaluate(left,op,right))
+
 
     def onCard(self,indexCard):
         if self.game.end :
@@ -70,3 +69,10 @@ class Controller :
 
     def saveName(self,name):
         self.playerName=name
+
+
+    def askForSolution(self):
+        return self.game.getSolution()
+
+    def resetSolution(self):
+        return self.game.resetSolution()

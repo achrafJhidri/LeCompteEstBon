@@ -1,6 +1,6 @@
-
 import tkinter as tk
 from view.MenuPrincipal import MenuPrincipal
+import tkinter.font as tkFont
 
 class Pseudo(tk.Frame):
     def __init__(self,controller,master):
@@ -22,6 +22,8 @@ class Pseudo(tk.Frame):
         self.validate = tk.Button(self, text="validate", fg="blue", command=self.on_validate, padx=5,
                                   default="normal")
         self.validate.pack(side="bottom")
+        self.title = tk.Label(self, text="Le Compte est bon", justify="right", font=tkFont.Font(size="32"))
+        self.title.pack(expand="yes")
 
         self.label = tk.Label(self, text="the name again ?",justify="right")
         self.label.pack(expand="yes")
@@ -43,5 +45,3 @@ class Pseudo(tk.Frame):
             self.controller.saveName(self.pseudo.get())
             self.pack_forget()
             self.menu.pack(expand="yes")
-
-

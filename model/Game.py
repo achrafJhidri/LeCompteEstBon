@@ -1,17 +1,14 @@
+from random import  randrange
 from tokenize import String
 
+from assets.Constantes import Config
 from model.Card import Card
 from model.CardsProvider import CardsProvider
 from model.History import History
-from model.expressions.Ex import Constant
-from model.expressions.binaryEx import BinaryExpression
 from model.operators.binaryOperators import *
 
 
 class Game:
-    MIN = 100 #constants
-    MAX = 999
-
     def __init__(self):
         self.target = 0
         self.initOperators()
@@ -22,7 +19,6 @@ class Game:
             self.cards.clear()
         else :
             self.cards=list()
-
         cards = CardsProvider().getRandomCards()
         for card in cards :
             self.cards.append(Card(card))
@@ -30,11 +26,8 @@ class Game:
         self.initCards()
         self.setRandomNumber()
         self.end=False
-        #self.currentOperation=None
-        #self.leftIndex=None
         self.score = 0
         self.playerName=""
-        #self.history=History()
 
         if hasattr(self,"history") :
             self.history.init()  # list of vectors ( LeftOp , op , RighOp , value )
@@ -51,7 +44,7 @@ class Game:
         self.operators[3]=Divide()
 
     def setRandomNumber(self):
-        raise NotImplementedError("Not implemented at this level")
+        self.target=randrange(Config().MIN,Config().MAX+1)
 
     def getCards(self):
         return self.cards

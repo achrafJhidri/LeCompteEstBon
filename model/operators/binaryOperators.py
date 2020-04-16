@@ -8,7 +8,7 @@ class Plus(BinaryOp):
     def __init__(self):
         pass
     
-    def evaluate(self , left , right):
+    def evaluate(self , left , right) -> int:
         return left+right
     
     def __repr__(self):
@@ -22,7 +22,7 @@ class Multi(BinaryOp):
     def __init__(self):
         pass
     
-    def evaluate(self , left , right):
+    def evaluate(self , left , right)-> int:
         return left*right
     
     def __repr__(self):
@@ -36,7 +36,7 @@ class Minus(BinaryOp):
     def __init__(self):
         pass
     
-    def evaluate(self , left , right):
+    def evaluate(self , left , right)-> int:
         return left-right
     
     def __repr__(self):
@@ -48,7 +48,7 @@ class Divide(BinaryOp):
     def __init__(self):
         pass
     
-    def evaluate(self , left , right):
+    def evaluate(self , left , right)-> int:
         if right - 0 < EPSYLON :
             raise ArithmeticError(" division by 0")
         return int(left / right)
