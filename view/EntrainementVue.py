@@ -22,8 +22,8 @@ class EntrainementVue(tk.Frame):
         self.solutionBoard.pack(side="left")
 
     def initBottomFrame(self):
-        self.bottomFrame = tk.Frame(self,background="red")
-        self.bottomFrame.pack(side="bottom",expand="yes",fill="both")
+        self.bottomFrame = tk.Frame(self)
+        self.bottomFrame.pack(side="bottom",expand="yes",fill="both",pady=50)
 
     def initTitleFrame(self):
         self.title = tk.Frame(self)

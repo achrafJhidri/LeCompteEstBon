@@ -1,6 +1,6 @@
 import tkinter as tk
 from assets.Constantes import Config
-
+import tkinter.font as tkFont
 class History(tk.Frame):
     def __init__(self, master):
         self.master=master
@@ -23,7 +23,7 @@ class History(tk.Frame):
             buttonList = list()
             # create line
             for j in range(0, 6):
-                operator = tk.Button(self, text="", state=tk.DISABLED, width=5)
+                operator = tk.Button(self, text="", state=tk.DISABLED, width=5, font=tkFont.Font(size=10))
                 operator.grid(row=i, column=j)
                 buttonList.append(operator)
             self.history.append(buttonList)
@@ -79,7 +79,6 @@ class History(tk.Frame):
         self.actualRow -= 1
 
     def reset(self):
-
         self.history.clear()
-        self.createGrid()
+        self.createGrid() #si mo7 a dit efface juste le contenu
         self.actualRow=0
