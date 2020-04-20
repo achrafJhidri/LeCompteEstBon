@@ -1,4 +1,6 @@
+import model
 from controller.operControllers.StateController import StateController
+from model.TrainingGame import TrainingGame
 from model.expressions.binaryEx import BinaryExpression
 
 
@@ -17,6 +19,8 @@ class RightOperandController(StateController):
         #if operation is valid
         if (type(op).isValid(left.evaluate(), right.evaluate())):
             result = currentOp.evaluate()
+
+
             #we add a new line in history and add New card
             row = self.getGame().addOperation(result)
             #we add right operand in the view and Add new Card
@@ -25,7 +29,13 @@ class RightOperandController(StateController):
             self.getView().disableCard(index)
             #disable UnDo Button
             self.getView().disableUnDo()
+
+            if result == self.getGame().target:
+                self.getView().askForReplay()
             self.gameState.currentController = self.next
+
+
+
         else:
             #otherwise we write an error message
             self.getView().operationNotValid(left, op, right)

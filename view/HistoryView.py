@@ -1,7 +1,7 @@
 import tkinter as tk
 import tkinter.font as tkFont
 
-class NewHistory(tk.Frame):
+class History(tk.Frame):
     def __init__(self, master):
         self.master=master
         tk.Frame.__init__(self, master=master)
@@ -14,7 +14,6 @@ class NewHistory(tk.Frame):
         self.RES = 4
         self.DEL = 5
         self.createGrid()
-        print("new History !")
 
     def createGrid(self):
         i  = 0

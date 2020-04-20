@@ -110,8 +110,8 @@ def algo(entiers, aTrouver,stop, log=[] ):
                 # Si on a trouve la solution
                 if resultat == aTrouver:
                     # On affiche les operations effectuees et on quitte
-                    for ligne in log:
-                        print(ligne)
+                    # for ligne in log:
+                    #     print(ligne)
                     stop[0]=True
                     break
                 else:

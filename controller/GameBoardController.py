@@ -2,14 +2,12 @@ from controller.operControllers.LeftOperandController import LeftOperandControll
 from controller.operControllers.OperatorController import OperatorController
 from controller.operControllers.RightOperandController import RightOperandController
 from model.Game import Game
-from model.NewGame import NewGame
-from model.TrainingGame import TrainingGame
-from view.View import View
 
 
-class GameState:
-    def __init__(self):
-        self.game: NewGame =None
+class GameBoardController:
+    def __init__(self,controller):
+        self.game: Game =None
+        self.controller=controller
         self.installControllers()
 
 
@@ -55,3 +53,13 @@ class GameState:
 
     def setView(self, view):
         self.view =view
+
+    def resetSolution(self):
+        self.game.resetSolution()
+
+    def askForSolution(self):
+        return self.game.getSolution()
+
+    def goMenuPrincipal(self):
+        self.controller.goMenuPrincipal()
+

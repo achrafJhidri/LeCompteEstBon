@@ -1,4 +1,4 @@
-from controller.NewController import NewController
+from controller.GameController import GameController
 
 
 #
@@ -9,7 +9,7 @@ from controller.NewController import NewController
 #      print ("mage does not exits")
 
 
-ctrl = NewController()
+ctrl = GameController()
 ctrl.run()
 
 

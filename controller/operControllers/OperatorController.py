@@ -17,7 +17,6 @@ class OperatorController(StateController):
         self.gameState.currentController = self.next
 
     def unDo(self):
-        print("undoOperator")
         row = self.getGame().eraseLeft()
         self.getView().disableUnDo()
         unUsedCards = self.getGame().getUnUsedCard()

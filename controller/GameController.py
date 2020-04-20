@@ -1,16 +1,11 @@
-from controller.GameState import GameState
-from controller.operControllers.LeftOperandController import LeftOperandController
-from controller.operControllers.OperatorController import OperatorController
-from controller.operControllers.RightOperandController import RightOperandController
-from model.Game import Game
-from model.NewGame import NewGame
+from controller.GameBoardController import GameBoardController
 from model.TrainingGame import TrainingGame
 from view.View import View
 
 
-class NewController:
+class GameController:
     def __init__(self):
-        self.controllerState = GameState()
+        self.controllerState = GameBoardController(self)
         self.view = View(self)
 
 
@@ -31,5 +26,6 @@ class NewController:
     def saveName(self,name):
         self.playerName=name
 
-
+    def goMenuPrincipal(self):
+        self.view.goMenuPrincipale()
 
