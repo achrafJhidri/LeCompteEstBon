@@ -9,11 +9,16 @@ from model.operators.binaryOperators import Plus, Minus, Multi, Divide
 
 
 class Game:
-    def __init__(self):
-        self.target = 0
+    def __init__(self,target=None,listCards=None):
+
+        if target :
+            self.target = target
+            self.cards = listCards
+        else :
+            self.init()
         self.initOperators()
         self.history = list()
-        self.init()
+
 
     def initCards(self):
         if hasattr(self, "cards"):

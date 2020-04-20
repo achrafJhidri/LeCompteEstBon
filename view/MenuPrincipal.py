@@ -1,6 +1,7 @@
 import tkinter as tk
 
 from view.EntrainementVue import EntrainementVue
+from view.MenuMultiJoueur import MenuMultiJoueur
 
 
 class MenuPrincipal(tk.Frame):
@@ -10,10 +11,10 @@ class MenuPrincipal(tk.Frame):
         self.config()
 
         self.controller=controller
-        self.previous=previous
         self.createWidgets()
 
         self.entrainementVue =None
+        self.multiPlayerVue = None
 
 
 
@@ -41,7 +42,11 @@ class MenuPrincipal(tk.Frame):
 
 
     def on_1vs1(self):
-        print("go etat 1vs1")
+        if self.multiPlayerVue  :
+                self.multiPlayerVue.destroy()
+        self.multiPlayerVue = MenuMultiJoueur(controller=self.controller, previous=self, master=self.master)
+        self.pack_forget()
+        self.multiPlayerVue.pack(expand="yes")
 
     def on_back(self):
         self.pack_forget()
