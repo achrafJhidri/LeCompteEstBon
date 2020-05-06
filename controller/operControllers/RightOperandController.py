@@ -1,6 +1,4 @@
-import model
 from controller.operControllers.StateController import StateController
-from model.TrainingGame import TrainingGame
 from model.expressions.binaryEx import BinaryExpression
 
 
@@ -31,7 +29,7 @@ class RightOperandController(StateController):
             self.getView().disableUnDo()
 
             if result == self.getGame().target:
-                self.getView().askForReplay()
+                self.getView().targetFound()
             self.gameState.currentController = self.next
 
 

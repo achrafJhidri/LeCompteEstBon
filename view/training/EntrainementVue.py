@@ -1,8 +1,8 @@
 
 import tkinter as tk
 import tkinter.font as tkFont
-from view.GameBoardView import GameBoard
-from view.SolutionVue import Solution
+from view.gameBoard.GameBoardView import GameBoard
+from view.training.SolutionVue import Solution
 
 
 
@@ -32,9 +32,9 @@ class EntrainementVue(tk.Frame):
         tk.Label(self.title, text="ENTRAINEMENT", font=tkFont.Font(size="32")).pack()
 
     def createWidgets(self):
-        self.back = tk.Button(self.bottomFrame, text="BACK", fg="blue",  command=self.on_back,width=20)
+        self.back = tk.Button(self.bottomFrame, text="Retour", fg="blue",  command=self.on_back,width=20)
         self.back.grid(column=0 ,row = 0 ,padx=120)
-        self.replay = tk.Button(self.bottomFrame, text="REPLAY", fg="blue", command=self.on_replay,width=20)
+        self.replay = tk.Button(self.bottomFrame, text="Rejouer", fg="blue", command=self.on_replay,width=20)
         self.replay.grid(column=1,row = 0)
 
     def onResetSolution(self):

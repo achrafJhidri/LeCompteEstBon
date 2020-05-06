@@ -1,6 +1,6 @@
 
-from model.Game import Game
-from model.Solution import Solution
+from model.game.Game import Game
+from model.training.Solution import Solution
 
 class TrainingGame(Game):
     def __init__(self):
@@ -23,3 +23,4 @@ class TrainingGame(Game):
     def init(self):
         Game.init(self) #call the init of the parent
         self.solve()
+        print("solve")

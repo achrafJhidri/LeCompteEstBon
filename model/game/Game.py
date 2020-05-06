@@ -1,8 +1,8 @@
 from random import randrange
 
 from assets.Constantes import Config
-from model.Card import Card
-from model.CardsProvider import CardsProvider
+from model.game.Card import Card
+from model.game.CardsProvider import CardsProvider
 from model.expressions.Ex import Constant
 from model.expressions.binaryEx import BinaryExpression
 from model.operators.binaryOperators import Plus, Minus, Multi, Divide
@@ -10,14 +10,14 @@ from model.operators.binaryOperators import Plus, Minus, Multi, Divide
 
 class Game:
     def __init__(self,target=None,listCards=None):
-
+        self.history = list()
         if target :
             self.target = target
             self.cards = listCards
         else :
             self.init()
         self.initOperators()
-        self.history = list()
+
 
 
     def initCards(self):
@@ -36,10 +36,10 @@ class Game:
         self.end = False
         self.score = 0
         self.playerName = ""
-        if hasattr(self,"history"):
-            self.history.clear()
-        else:
-            self.history = list()
+        #if hasattr(self,"history"):
+        self.history.clear()
+        #else:
+        #    self.history = list()
         self.left = None
         self.right =None
         self.op = None

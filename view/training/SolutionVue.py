@@ -18,13 +18,15 @@ class Solution(tk.Frame):
                                    text="Solution",justify="center")
         self.cibleLabel.grid(row=0,column=0,columnspan=2)
 
-        self.askForSolution = tk.Button(self, text="solve", width=13, font=tkFont.Font(size=10), fg="blue", command=self.onSolve)
+        self.askForSolution = tk.Button(self, text="Afficher la solution", width=13, font=tkFont.Font(size=10), fg="blue", command=self.onSolve)
         self.askForSolution.grid(row=Config().NUMBER_OF_CARDS,column=0)
 
-        self.resetSolution = tk.Button(self, text="resetSolution", width=13, font=tkFont.Font(size=10),fg="blue", command=self.onResetSolution)
+        self.resetSolution = tk.Button(self, text="Effacer la solution", width=13, font=tkFont.Font(size=10),fg="blue", command=self.onResetSolution)
         self.resetSolution.grid(row=Config().NUMBER_OF_CARDS, column=1)
+        self.resetSolution.config(state="disable")
 
     def onSolve(self):
+        self.resetSolution.config(state="normal")
         result = self.controller.askForSolution()
         if result :
             label = tk.Label(self, bd=1, width=40, font=tkFont.Font(size=10),
@@ -32,7 +34,12 @@ class Solution(tk.Frame):
             label.grid(row=self.actuelDepth, column=0,columnspan=2)
             self.solutionIteration.append(label)
             self.actuelDepth+=1
+
+
+
+
     def onResetSolution(self):
+        self.resetSolution.config(state="disable")
         self.controller.resetSolution()
         while len(self.solutionIteration) > 0 :
             self.solutionIteration.pop().destroy()

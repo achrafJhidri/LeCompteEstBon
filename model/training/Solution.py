@@ -1,4 +1,4 @@
-from model.Solver import algo
+from model.training.Solver import algo
 
 
 class Solution :

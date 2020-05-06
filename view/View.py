@@ -1,4 +1,6 @@
 import queue
+from tkinter import messagebox
+
 from view.Pseudo import Pseudo
 import tkinter as tk
 
@@ -8,19 +10,28 @@ class View(tk.Tk):
         tk.Tk.__init__(self)
         self.frame = Pseudo(controller, self)
 
-        screen_height = int(self.winfo_screenheight() * 1/2)
-        screen_width = self.winfo_screenwidth()
+        #screen_height = int(self.winfo_screenheight() * 1/2)
+        #screen_width = self.winfo_screenwidth()
 
-        screen_width = int(screen_width *3/8)
+        #screen_width = int(screen_width *3/8)
 
-        self.geometry("{0}x{1}".format(screen_width, screen_height))
+        #self.geometry("{0}x{1}".format(screen_width, screen_height))
+
+        self.title("Le compte est bon")
+
+        self.geometry("650x600")
 
         self.controller = controller
 
         self.queue=queue.Queue()
         self.running=1
         self.periodicCall()
+        self.protocol("WM_DELETE_WINDOW", self.on_closing)
 
+    def on_closing(self):
+        if messagebox.askokcancel("Quit", "Do you want to quit?"):
+            print(self.frame)
+            self.destroy()
 
     def periodicCall(self):
         """
@@ -39,7 +50,6 @@ class View(tk.Tk):
 
 
     def goMenuPrincipale(self):
-        print("on est tous la")
         self.frame.forget()
         self.frame=Pseudo(controller=self.controller,master=self)
 
