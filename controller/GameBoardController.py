@@ -1,12 +1,13 @@
 from controller.operControllers.LeftOperandController import LeftOperandController
 from controller.operControllers.OperatorController import OperatorController
 from controller.operControllers.RightOperandController import RightOperandController
-from model.Game import Game
+from model.game.Game import Game
+from model.training.TrainingGame import TrainingGame
 
 
 class GameBoardController:
     def __init__(self,controller):
-        self.game: Game =None
+        self.game: Game = None
         self.controller=controller
         self.installControllers()
 
@@ -35,8 +36,11 @@ class GameBoardController:
     def unDo(self):
         self.currentController.unDo()
 
-    def replay(self):
-        self.game.init()
+    def replay(self, game=None):
+        if game is None:
+            self.game.init()
+        else:
+            self.game = game
         self.currentController = self.leftOperand
 
     def getNumberCible(self):

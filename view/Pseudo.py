@@ -19,13 +19,13 @@ class Pseudo(tk.Frame):
 
 
     def createWidgets(self):
-        self.validate = tk.Button(self, text="validate", fg="blue", command=self.on_validate, padx=5,
+        self.validate = tk.Button(self, text="valider", fg="blue", command=self.on_validate, padx=5,
                                   default="normal")
         self.validate.pack(side="bottom")
         self.title = tk.Label(self, text="Le Compte est bon", justify="right", font=tkFont.Font(size="32"))
         self.title.pack(expand="yes")
 
-        self.label = tk.Label(self, text="the name again ?",justify="right")
+        self.label = tk.Label(self, text="Entrez votre prénom",justify="right")
         self.label.pack(expand="yes")
 
         r = self.master.winfo_screenwidth()

@@ -4,7 +4,7 @@ from tkinter import messagebox
 
 from assets.Constantes import Config
 
-from view.HistoryView import History
+from view.gameBoard.HistoryView import History
 
 
 class GameBoard(tk.Frame):
@@ -76,14 +76,16 @@ class GameBoard(tk.Frame):
     def toggleAll(buttons, state):
         for button in buttons:
             button.config(state=state)
-    def replay(self):
-        self.controller.replay()
+
+    def replay(self, game=None):
+        self.controller.replay(game)
         self.cibleValue.set(self.controller.getNumberCible())
         self.history.reset()
-
         while len(self.listCards) != 0:
             self.listCards.pop().destroy()
         self.createCards()
+        self.disableUnDo()
+        self.toggleAll(self.listOperators, "disable")
     def rollBack(self):
         left, right = self.controller.deleteLine()
         self.listCards[left].config(state="normal")
@@ -133,7 +135,7 @@ class GameBoard(tk.Frame):
                           fg="blue", command=lambda c=len(self.listCards): self.onClick(c))
         button.grid(row=1, column=len(self.listCards) - Config().NUMBER_OF_CARDS)
         self.listCards.append(button)
-    def askForReplay(self):
+    def targetFound(self):
         answer = messagebox.askyesno("replay", "Bravo vous avez trouvé ! voulez-vous rejouer ?")
         if answer:
             self.master.on_replay()
@@ -148,20 +150,15 @@ class GameBoardMultiPlayer(GameBoard):
 
     def disable(self):
         self.toggleAll(self.listCards, "disable")
+        self.toggleAll(self.listOperators,"disable")
+        self.disableUnDo()
+        self.history.disable()
     def enable(self):
         self.toggleAll(self.listCards, "normal")
-    def askForReplay(self):
-        answer = messagebox.askyesno("replay", "Bravo vous avez trouvé ! voulez-vous rejouer ?")
+    def targetFound(self):
+        self.master.targetFound()
 
-        # mettre a jour ton score
-
-
-        if answer:
-            # self.master.on_replay()
-            pass
-        else:
-            # self.master.forget()
-            # self.controller.goMenuPrincipal()
-            self.master.arreterLaPartie()
+    def setTarget(self, newTarget):
+        self.cibleValue.set(newTarget)
 
 

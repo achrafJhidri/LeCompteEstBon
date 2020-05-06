@@ -1,20 +1,22 @@
 import tkinter as tk
 
-from view.EntrainementVue import EntrainementVue
-from view.MenuMultiJoueur import MenuMultiJoueur
+from view.training.EntrainementVue import EntrainementVue
+from view.multiplayer.MenuMultiJoueur import MenuMultiJoueur
 
 
 class MenuPrincipal(tk.Frame):
     def __init__(self,controller,master,previous):
         tk.Frame.__init__(self,master=master)
-
+        self.previous = previous
         self.config()
 
         self.controller=controller
         self.createWidgets()
 
         self.entrainementVue =None
-        self.multiPlayerVue = None
+
+
+
 
 
 
@@ -22,13 +24,13 @@ class MenuPrincipal(tk.Frame):
         self.pack(expand="yes")
 
     def createWidgets(self):
-        self.back = tk.Button(self, text="go back", fg="blue", command=self.on_back)
+        self.back = tk.Button(self, text="Retour", fg="blue", command=self.on_back)
         self.back.pack(side="bottom",expand="yes")
 
-        self.entrainement = tk.Button(self, text="entrainement", fg="blue",  command=self.on_entrainement)
+        self.entrainement = tk.Button(self, text="Entrainement", fg="blue",  command=self.on_entrainement)
         self.entrainement.pack(side="left",padx=10,pady=20,expand="yes")
 
-        self.multiPlayer = tk.Button(self, text="multi-joueurs", command=self.on_1vs1)
+        self.multiPlayer = tk.Button(self, text="Multijoueurs", command=self.on_1vs1)
         self.multiPlayer.pack(side="left",padx=10,pady=20,expand="yes")
 
 
@@ -42,9 +44,10 @@ class MenuPrincipal(tk.Frame):
 
 
     def on_1vs1(self):
-        if self.multiPlayerVue  :
-                self.multiPlayerVue.destroy()
-        self.multiPlayerVue = MenuMultiJoueur(controller=self.controller, previous=self, master=self.master)
+        if not hasattr(self, "multiPlayerVue"):
+            self.multiPlayerVue = MenuMultiJoueur(controller=self.controller, previous=self, master=self.master)
+
+        #   self.multiPlayerVue.destroy()
         self.pack_forget()
         self.multiPlayerVue.pack(expand="yes")
 

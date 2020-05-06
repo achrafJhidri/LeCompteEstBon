@@ -65,6 +65,9 @@ class History(tk.Frame):
             self.history[row-1][self.DEL].config(state=tk.NORMAL)
         self.master.rollBack()
 
+    def disable(self):
+        for i in range(0,6):
+            self.history[i][self.DEL].config(state=tk.DISABLED)
 
 
 

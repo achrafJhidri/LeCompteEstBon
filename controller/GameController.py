@@ -1,5 +1,5 @@
 from controller.GameBoardController import GameBoardController
-from model.TrainingGame import TrainingGame
+from model.training.TrainingGame import TrainingGame
 from view.View import View
 
 
@@ -16,11 +16,8 @@ class GameController:
         self.view.frame = view
 
     def initTrainingGame(self):
-        if self.controllerState.game :
-            self.controllerState.game.init()
-        else :
-            self.controllerState.game = TrainingGame()
-            self.controllerState.game.setName(self.playerName)
+        self.controllerState.game = TrainingGame()
+        self.controllerState.game.setName(self.playerName)
 
 
     def saveName(self,name):

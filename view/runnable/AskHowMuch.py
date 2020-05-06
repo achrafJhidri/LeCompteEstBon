@@ -1,4 +1,4 @@
-from view.Runnable import Runnable
+from view.runnable.Runnable import Runnable
 
 class AskHowMuch(Runnable):
     def __init__(self,vue):
